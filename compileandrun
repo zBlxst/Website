@@ -1,0 +1,3 @@
+mkdir -p ./bin ./logs
+gcc ./src/main.c -Wformat-truncation=0 ./src/struct.c ./src/log.c ./src/utils.c -o ./bin/main && 
+./bin/main
