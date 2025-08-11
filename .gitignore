@@ -1,4 +1,4 @@
-bin
+build/
 .gdb_history
 .vscode
-Logs
+logs/
