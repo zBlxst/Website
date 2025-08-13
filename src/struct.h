@@ -7,11 +7,18 @@
 
 #define STATUSCODE_BUFFER_SIZE 8
 #define MESSAGE_BUFFER_SIZE 1024
-#define CONTENT_BUFFER_SIZE 1024
+#define CONTENT_BUFFER_SIZE 1048576
 
 
 #define HEADER_BUFFER_SIZE 1024
 #define MAX_HEADERS 100
+
+#define CONNECTION_CLOSED_HEADER "Connection: close"
+#define SERVER_HEADER "Server: homemade"
+#define CREATOR_HEADER "Creator: zblxst"
+
+#define BASE_HEADERS {CONNECTION_CLOSED_HEADER, SERVER_HEADER, CREATOR_HEADER}
+#define N_BASE_HEADERS 3
 
 typedef struct {
 
@@ -23,6 +30,7 @@ typedef struct {
     int n_header;
 
     char content[CONTENT_BUFFER_SIZE];
+    int content_length;
 
 } request;
 
@@ -35,6 +43,7 @@ typedef struct {
     int n_header;
 
     char content[CONTENT_BUFFER_SIZE];
+    int content_length;
 
 
 } response;
@@ -49,7 +58,10 @@ int parse_request(request* r, char* request_buffer, int buffer_size);
 int get_header_request(request* r, char* name, char* dest);
 void debug_print_request(request* r);
 
-int build_response(response* r, int statuscode, char* message, char **headers, int n_header, char *content);
+int build_response(response* r, int statuscode, char* message, char **headers, int n_header, char *content, int content_length);
+int build_404_response(response* r);
+int build_file_response(response* resp, request* req);
+
 void debug_print_response(response* r);
 void send_response(int socket, response* r);
 

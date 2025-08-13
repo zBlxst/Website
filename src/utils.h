@@ -3,6 +3,8 @@
 
 #include <stdarg.h>
 
+#define MIN(a, b) ((a) > (b) ? (b) : (a))
+
 #define BUFFER_SIZE 1048576
 #define DEBUG 0
 
